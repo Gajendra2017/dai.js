@@ -61,3 +61,4 @@ export const LIQUIDATION_RATIO_SIMPLE = 'liquidationRatioSimple';
 // token
 export const TOKEN_BALANCE = 'tokenBalance';
 export const BALANCE = 'balance';
+export const TOKEN_ALLOWANCE = 'tokenAllowance';

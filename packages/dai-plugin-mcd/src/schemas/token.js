@@ -1,5 +1,5 @@
-import { TOKEN_BALANCE } from './constants';
-import { getMcdToken } from '../utils';
+import { TOKEN_BALANCE, TOKEN_ALLOWANCE } from './constants';
+import { getMcdToken, fromWei } from '../utils';
 
 export const tokenBalance = {
   generate: (address, symbol) => {
@@ -33,6 +33,30 @@ export const tokenBalance = {
   returns: [TOKEN_BALANCE]
 };
 
+export const tokenAllowance = {
+  generate: (owner, spender, symbol) => {
+    if (symbol === 'WETH') symbol = 'MWETH';
+    if (symbol === 'DAI') symbol = 'MDAI';
+
+    const currencyToken = getMcdToken(symbol);
+    const contract =
+      symbol === 'MDAI' ? 'MCD_DAI' : symbol === 'MWETH' ? 'ETH' : symbol;
+    if (!currencyToken)
+      throw new Error(`${symbol} token is not part of the default tokens list`);
+
+    return {
+      id: `allowance.${symbol}.${owner}.${spender}`,
+      contractName: contract,
+      call: ['allowance(address,address)(uint256)', owner, spender],
+      transforms: {
+        [TOKEN_ALLOWANCE]: v => fromWei(v)
+      }
+    };
+  },
+  return: [TOKEN_ALLOWANCE]
+};
+
 export default {
-  tokenBalance
+  tokenBalance,
+  tokenAllowance
 };

@@ -6,6 +6,10 @@ import { defaultTokens } from '.';
 
 const web3Utils = new Web3().utils;
 
+export function promiseWait(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export function stringToBytes(str) {
   assert(!!str, 'argument is falsy');
   assert(typeof str === 'string', 'argument is not a string');

@@ -5,6 +5,7 @@ import cdpManager from './cdpManager';
 import jug from './jug';
 import pot from './pot';
 import cat from './cat';
+import token from './token';
 
 import computed from './computed';
 
@@ -17,6 +18,7 @@ export default {
   ...jug,
   ...pot,
   ...cat,
+  ...token,
   ...computed
 };
 
